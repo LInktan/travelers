@@ -4,15 +4,15 @@ const urlParams = new URLSearchParams(queryString);
 const fadeSpeed = parseFloat(urlParams.get('fade')||'0.2');
 const seekThreshold = parseFloat(urlParams.get('seek')||'0.01');
 
-var state = localStorage.state || 'false,false,false,false,false,false,false';
+var state = localStorage.state || 'false,false,false,false,false,false,false,false';
 state = state.split(',');
 state = state.map(v=>v==='true');
 
-var volume = localStorage.volume || '0.5,0.5,0.5,0.5,0.5,0.5,0.5';
+var volume = localStorage.volume || '0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5';
 volume = volume.split(',');
 volume = volume.map(parseFloat);
 
-var loadState = 7;
+var loadState = 8;
 
 var song = [
 	new Howl({
@@ -98,5 +98,17 @@ var song = [
 		},
 		onstop:i=>{song[6].play()},
 		onplayerror:(i,e)=>{console.error(e)}
-	})
+	}),
+	new Howl({
+        src:['resources/progenitor.ogg','resources/progenitor.wav'],
+        loop: true,
+        volume: 0,
+        onload: ()=>{loadState -= 1;},
+        onloaderror:err=>{
+                document.getElementById('loader').innerHTML =
+                `ERROR<p>progenitor: ${err}</p>`
+        },
+        onstop:i=>{song[7].play()},
+        onplayerror:(i,e)=>{console.error(e)}
+})
 ];
