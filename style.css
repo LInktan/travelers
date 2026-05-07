@@ -144,15 +144,39 @@ body {
 
 .credit {
 	position: fixed;
-	right: 0px;
-	bottom: 0px;
-	font-size: 1.2rem;
-	margin: 2rem;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 30px;
+	overflow: hidden;
+	background-color: rgba(0, 0, 0, 0.5);
 	user-select: none;
 	pointer-events: none;
-	line-height: 1.4;
-	max-width: 500px;
-	text-align: right;
+	font-size: 1rem;
+	line-height: 30px;
+	white-space: nowrap;
+}
+
+.credit-track {
+	display: inline-block;
+	padding-left: 100%;
+	animation: scroll-credits 40s linear infinite;
+}
+
+.credit-track span {
+	display: inline-block;
+	padding: 0 1rem;
+}
+
+.credit-track span:not(:last-child)::after {
+	content: "•";
+	margin-left: 1rem;
+	opacity: 0.5;
+}
+
+@keyframes scroll-credits {
+	0% { transform: translateX(0); }
+	100% { transform: translateX(-100%); }
 }
 
 @media (max-width: 1700px) {
